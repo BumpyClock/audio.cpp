@@ -45,7 +45,7 @@ concurrency:
 
 jobs:
   check-release:
-    runs-on: ubuntu-latest
+    runs-on: boat
     outputs:
       should_release: ${{ steps.check.outputs.should_release }}
     steps:
@@ -55,7 +55,7 @@ jobs:
         run: echo "should_release=true" >> "$GITHUB_OUTPUT"
 
   get-version:
-    runs-on: ubuntu-latest
+    runs-on: boat
     outputs:
       tag: ${{ steps.version.outputs.tag }}
       version: ${{ steps.version.outputs.version }}
@@ -126,7 +126,7 @@ jobs:
     name: Ubuntu x64 (CPU)
     needs: [check-release, get-version]
     if: ${{ needs.check-release.outputs.should_release == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: boat
     steps:
       - uses: actions/checkout@v4
         with:
@@ -155,7 +155,7 @@ jobs:
     name: Ubuntu x64 (CPU portable)
     needs: [check-release, get-version]
     if: ${{ needs.check-release.outputs.should_release == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: boat
     steps:
       - uses: actions/checkout@v4
         with:
@@ -186,7 +186,7 @@ jobs:
     name: Ubuntu x64 (Vulkan)
     needs: [check-release, get-version]
     if: ${{ needs.check-release.outputs.should_release == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: boat
     steps:
       - uses: actions/checkout@v4
         with:
@@ -215,7 +215,7 @@ jobs:
     name: Ubuntu x64 (Vulkan portable)
     needs: [check-release, get-version]
     if: ${{ needs.check-release.outputs.should_release == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: boat
     steps:
       - uses: actions/checkout@v4
         with:
@@ -246,7 +246,7 @@ jobs:
     name: Ubuntu x64 (CUDA 12.8, Colab T4)
     needs: [check-release, get-version]
     if: ${{ needs.check-release.outputs.should_release == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: boat
     continue-on-error: true
     container: nvidia/cuda:12.8.1-devel-ubuntu22.04
     env:
@@ -613,7 +613,7 @@ jobs:
         needs.windows-vulkan.result == 'success' &&
         needs.windows-cuda.result == 'success'
       }}
-    runs-on: ubuntu-latest
+    runs-on: boat
     permissions:
       contents: write
     steps:

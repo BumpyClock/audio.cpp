@@ -9,30 +9,10 @@ name: server lifecycle cross-platform
 on:
   workflow_dispatch:
   pull_request:
-    paths:
-      - "app/server/**"
-      - "src/framework/core/host_memory.cpp"
-      - "include/engine/framework/core/backend.h"
-      - "src/framework/core/backend.cpp"
-      - "tests/unittests/test_server_config.cpp"
-      - "include/engine/framework/runtime/parallel_session.h"
-      - "include/engine/framework/runtime/session_pool.h"
-      - "include/engine/framework/runtime/session.h"
-      - "tests/unittests/test_server_model_slots.cpp"
-      - "tests/unittests/test_server_parallel_lifecycle.cpp"
-      - "tests/unittests/test_server_runtime_selection.cpp"
-      - "tests/unittests/test_session_pool.cpp"
-      - "tests/unittests/test_server_busy_guard.cpp"
-      - "include/engine/framework/core/shared_weight_cache.h"
-      - "src/framework/assets/tensor_source.cpp"
-      - "include/engine/framework/assets/tensor_source.h"
-      - "include/engine/framework/assets/resource_bundle.h"
-      - "src/framework/assets/resource_bundle.cpp"
-      - "include/engine/framework/io/json.h"
-      - "tests/unittests/test_gguf_tensor_source.cpp"
-      - "tests/unittests/test_shared_weight_cache.cpp"
-      - "src/framework/io/json.cpp"
-      - ".github/workflows/server-memory-guard.yml"
+  push:
+    branches: [main, dev]
+  schedule:
+    - cron: '17 5 * * 1'
 
 jobs:
   build-test:

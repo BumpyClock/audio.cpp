@@ -86,6 +86,22 @@ Framework modules are a high-impact but higher-risk contribution area because th
 
 If your contribution is a variant of an existing module, add it as a separate experimental module, for example `xxxExp`, instead of branching inside or rewriting the existing module. The new module can replace the existing one later, after it has shown no regressions across all models that rely on the current implementation.
 
+## CI coverage and runners
+
+The server lifecycle workflow runs its complete existing native CPU and sanitizer
+jobs for every PR, pushes to `main`/`dev`, and a weekly full backstop. There is no
+changed-path filter or base-ref detector. CMake/build inputs, shared framework
+code, hidden files, renamed helpers and both parallel HTTP test sources cannot
+silently bypass this lane. The HTTP port resource lock and sanitizer diagnostics
+remain unchanged. This is broader coverage, not an affected-only optimization.
+
+Unpinned Linux release jobs use Boat. Explicit Ubuntu 24.04, ARM64, Windows and
+macOS contracts remain on their existing runners. Release dependencies, artifact
+names and `release-assets` layout are unchanged. Source migration does not enable
+public Boat policy or dispatch releases. GPU/model, native Windows/macOS and
+publishing qualification remain separate; no inference or model downloads are
+part of this CI wiring change.
+
 ## Acknowledgments
 
 audio.cpp is moving faster because people keep showing up with real fixes, careful testing, and useful pressure on the parts that matter. Thank you to:
